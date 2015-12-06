@@ -1,5 +1,6 @@
 var UI = require('ui');
 var ajax = require('ajax');
+var Vibe = require('ui/vibe');
 var Voice = require('ui/voice');
 
 var main = new UI.Card({
@@ -36,10 +37,15 @@ main.on('click', 'select', function(e) {
           console.log(data);
           console.log(status);
           console.log(req);
+          Vibe.vibrate('long');
+          var errcard = new UI.Card({title: 'Failed!'});
+          errcard.body('status:'+status);
+          errcard.show();
         },
         function(data, status, req) {
           var card2 = new UI.Card({title: 'Saved!'});
           card2.show();
+          Vibe.vibrate();
           console.log('Req success: ' + status + '/' +data);
         }
       );
