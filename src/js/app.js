@@ -24,13 +24,14 @@ main.on('click', 'select', function(e) {
     }
     var content = e.transcription;
     card.on('click', 'select', function(e) {
+      var feedbackCard = new UI.Card();
       console.log(e.button);
       ajax(
         {
-        url: 'http://requestb.in/1cpmxfm1',
-        method: 'post',
-        type: 'json',
-        data: {'content': content},
+          url: 'http://requestb.in/1cpmxfm1',
+          method: 'post',
+          type: 'json',
+          data: {'content': content},
         },
         function(data, status, req) {
           console.log('Req failed: ', data, status, req);
@@ -38,15 +39,15 @@ main.on('click', 'select', function(e) {
           console.log(status);
           console.log(req);
           Vibe.vibrate('long');
-          var errcard = new UI.Card({title: 'Failed!'});
-          errcard.body('status:'+status);
-          errcard.show();
+          feedbackCard.title('Failed :(');
+          feedbackcard.body('status:'+status);
+          feedbackcard.show();
         },
         function(data, status, req) {
-          var card2 = new UI.Card({title: 'Saved!'});
-          card2.show();
           Vibe.vibrate();
-          console.log('Req success: ' + status + '/' +data);
+          feedbackCard.title('Note saved!');
+          feedbackcard.show();
+          console.log('Req for saving note: ' + status + '/' +data);
         }
       );
     });
