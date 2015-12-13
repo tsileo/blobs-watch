@@ -24,6 +24,7 @@ main.on('click', 'select', function(e) {
     }
     var content = e.transcription;
     card.on('click', 'select', function(e) {
+      Vibe.vibrate();
       var feedbackCard = new UI.Card();
       console.log(e.button);
       ajax(
